@@ -7,11 +7,15 @@ function checkLength(currentPhrase, availableLength) {
 
 checkLength('Введите Ваш текст', 20);
 
+// const checkLength = (currentPhrase, availableLength) => currentPhrase.length <= availableLength;
+
+checkLength('Введите Ваш текст', 20);
+
 // ФУНКЦИЯ ПРОВЕРКИ СТРОКИ НА ПАЛИНДРОМ
 // ВОПРОС: почему при сортировке программа не видит букву Ё?
 
 function checkPhalindrome(currentPhrase) {
-  const text = currentPhrase.toLowerCase().replace(/[^а-яa-z1-9]/gi, '');
+  const text = currentPhrase.toLowerCase().replace(/[^a-zа-яё]/gi, '');
   let result = '';
   for (let i = (text.length - 1); i >= 0; i--) {
     result += text[i];
@@ -24,11 +28,14 @@ checkPhalindrome('Леша на полке клопа нашел');
 // ФУНКЦИЯ ИЗВЛЕЧЕНИЯ ЦИФР ИЗ СТРОКИ
 
 function extractNumber(currentPhrase) {
+  if (typeof currentPhrase === 'number') {
+    return currentPhrase;
+  }
   const phrase = currentPhrase.replace(/[^0-9]/g,'');
   return phrase;
 }
 
-extractNumber('19 февряла 2023 года');
+extractNumber('19 февраля 2023 года');
 
 // ФУНКЦИЯ ТРАНСФОРМАЦИИ СТРОКИ ДО МИНИМАЛЬНОЙ ДЛИНЫ ПРИ ПОМОЩИ ДОБАВЛЕНИЯ УКАЗАННОГО СИМВОЛА
 
