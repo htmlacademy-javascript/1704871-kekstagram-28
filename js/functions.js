@@ -1,4 +1,4 @@
-// Функция проверки длины строки
+// ФУНКЦИЯ ПРОВЕРКИ ДЛИНЫ СТРОКИ
 
 function checkLength(currentPhrase, availableLength) {
   const stringLength = currentPhrase.length;
@@ -7,7 +7,7 @@ function checkLength(currentPhrase, availableLength) {
 
 checkLength('Введите Ваш текст', 20);
 
-// Функция проверки строки на палиндром
+// ФУНКЦИЯ ПРОВЕРКИ СТРОКИ НА ПАЛИНДРОМ
 // ВОПРОС: почему при сортировке программа не видит букву Ё?
 
 function checkPhalindrome(currentPhrase) {
@@ -21,7 +21,7 @@ function checkPhalindrome(currentPhrase) {
 
 checkPhalindrome('Леша на полке клопа нашел');
 
-// Функция извлечения цифр их строки
+// ФУНКЦИЯ ИЗВЛЕЧЕНИЯ ЦИФР ИЗ СТРОКИ
 
 function extractNumber(currentPhrase) {
   const phrase = currentPhrase.replace(/[^0-9]/g,'');
@@ -30,4 +30,16 @@ function extractNumber(currentPhrase) {
 
 extractNumber('19 февряла 2023 года');
 
-// Функция трансформации строки до минимальной длины при помощи добавления указанного символа
+// ФУНКЦИЯ ТРАНСФОРМАЦИИ СТРОКИ ДО МИНИМАЛЬНОЙ ДЛИНЫ ПРИ ПОМОЩИ ДОБАВЛЕНИЯ УКАЗАННОГО СИМВОЛА
+
+function transformString(a, b, c) {
+  let result = a;
+  if (a.length < b) {
+    for (let i = (a.length - 1); i < (b - 1); i++) {
+      result += c;
+    }
+  }
+  return result;
+}
+
+transformString('123', 5, 'q');
