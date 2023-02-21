@@ -12,7 +12,6 @@ checkLength('Введите Ваш текст', 20);
 checkLength('Введите Ваш текст', 20);
 
 // ФУНКЦИЯ ПРОВЕРКИ СТРОКИ НА ПАЛИНДРОМ
-// ВОПРОС: почему при сортировке программа не видит букву Ё?
 
 function checkPhalindrome(currentPhrase) {
   const text = currentPhrase.toLowerCase().replace(/[^a-zа-яё]/gi, '');
