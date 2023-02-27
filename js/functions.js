@@ -2,7 +2,7 @@
 
 const checkLength = (currentPhrase, availableLength) => {
   const stringLength = currentPhrase.length;
-  return stringLength <= availableLength ? 'true' : 'false';
+  return stringLength <= availableLength;
 };
 
 checkLength('Введите Ваш текст', 20);
@@ -15,7 +15,7 @@ const checkPhalindrome = (currentPhrase) => {
   for (let i = (text.length - 1); i >= 0; i--) {
     result += text[i];
   }
-  return text === result ? 'true' : 'false';
+  return text === result;
 };
 
 checkPhalindrome('Леша на полке клопа нашел');
