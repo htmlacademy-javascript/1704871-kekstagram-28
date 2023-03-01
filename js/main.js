@@ -1,14 +1,3 @@
-// МЕНЯ МОЖЕТ НЕ БЫТЬ НА СОЗВОНЕ, ПОЭТОМУ ОСТАВЛЮ СВОИ ВОПРОСЫ ЗДЕСЬ.
-
-// Касательно стрелочного вида функций - еще не успел привести к нужному виду. Не забыл.
-
-// ВОПРОСЫ К НАСТАВНИКУ:
-
-// 1. Как сделать так, чтобы функция генерации случайного id выдавала каждый раз новое число?
-// А то у меня получается, что авторы комментариев - "Вадим" и "Дарья". И к каждому посту авторы одни и те же.
-// С остальным то же самое: id, комментарии и прочее генерируются по шаблону каждый раз одни и те же.
-// А нужно чтобы не повторялись.
-
 const POST_COUNT = 25;
 const COMMENTS_COUNT = 2;
 const LIKES_MIN_COUNT = 15;
@@ -34,60 +23,60 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 const DESCRIPTIONS = [
-  'Эту фотографию я сделал сам!',
-  'Моя семья.',
-  'Это я на отдыхе.',
-  'Мой дом.'
+  'Эту фотографию я сделал сам! #me',
+  'С друзьями на шашлыках #отдых',
+  'Это мы на отдыхе #отдыхаемхорошо #веселоидружно',
+  'Собрались со всей семьей дома #милыйдом #отдыхаем #уютный вечер'
 ];
 
-const MASSIV_COMMENT_WIZARD = Array.from({length: COMMENTS_COUNT}, createCommentWizard); // Эта функция генерирует массив комментариев
+const GET_ALL_COMMENTS = Array.from({length: COMMENTS_COUNT}, GET_COMMENT);
 
-function GET_RANDOM_INTEGER(min, max) {
+const GET_RANDOM_INTEGER = (min, max) => {
   const lower = Math.ceil(Math.min(min, max));
   const upper = Math.floor(Math.max(min, max));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
-}
+};
 
-function createPostUrl () {
-  const a = 'photos/';
-  const b = GET_RANDOM_INTEGER(1, 25);
-  const c = '.jpg';
-  return a + b + c;
-}
+const CREATE_PHOTO_URL = () => {
+  const WAY = 'photos/';
+  const ID = GET_RANDOM_INTEGER(1, 25);
+  const EXTENSION = '.jpg';
+  return WAY + ID + EXTENSION;
+};
 
-function createCommentUrl () {
-  const a = 'img/avatar-';
-  const b = GET_RANDOM_INTEGER(1, 25);
-  const c = '.svg';
-  return a + b + c;
-}
+const CREATE_AVATAR_URL = () => {
+  const WAY = 'img/avatar-';
+  const ID = GET_RANDOM_INTEGER(1, 25);
+  const EXTENSION = '.svg';
+  return WAY + ID + EXTENSION;
+};
 
-function createCommentWizard() { // Эта функция генерирует комментарий к каждому посту
+function GET_COMMENT() {
   return {
     id: GET_RANDOM_INTEGER(0, 999999999),
-    avatar: createCommentUrl(),
+    avatar: CREATE_AVATAR_URL(),
     message: COMMENTS[GET_RANDOM_INTEGER(0, COMMENTS.length - 1)],
     name: NAMES[GET_RANDOM_INTEGER(0, NAMES.length - 1)]
   };
 }
 
-createCommentWizard();
+GET_COMMENT();
 
-function userPostsWizard() { // Эта функция генерирует объекты постов
+function GET_USER_POST() {
   return {
     id: GET_RANDOM_INTEGER(1, 25),
-    url: createPostUrl(),
+    url: CREATE_PHOTO_URL(),
     description: DESCRIPTIONS[GET_RANDOM_INTEGER(0, DESCRIPTIONS.length - 1)],
     likes: GET_RANDOM_INTEGER(LIKES_MIN_COUNT, LIKES_MAX_COUNT),
-    comments: MASSIV_COMMENT_WIZARD
+    comments: GET_ALL_COMMENTS
   };
 }
 
-userPostsWizard();
+GET_USER_POST();
 
 
-const MASSIV_POST_WIZARD = Array.from({length: POST_COUNT}, userPostsWizard); // Эта функция генерирует массив постов
+const MASSIV_POST_WIZARD = Array.from({length: POST_COUNT}, GET_USER_POST);
 
 function getFinalResult() {
   return MASSIV_POST_WIZARD;
