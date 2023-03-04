@@ -26,11 +26,11 @@ const DESCRIPTIONS = [
   'Эту фотографию я сделал сам! #me',
   'С друзьями на шашлыках #отдых',
   'Это мы на отдыхе #отдыхаемхорошо #веселоидружно',
-  'Собрались со всей семьей дома #милыйдом #отдыхаем #уютный вечер'
+  'Собрались со всей семьей дома #милыйдом #отдыхаем #уютный вечер',
+  'Еду домой! #милыйдом #уютный вечер',
 ];
 
-const GET_ALL_COMMENTS = Array.from({length: COMMENTS_COUNT}, GET_COMMENT);
-
+// Функция-генератор случайного числа
 const GET_RANDOM_INTEGER = (min, max) => {
   const lower = Math.ceil(Math.min(min, max));
   const upper = Math.floor(Math.max(min, max));
@@ -38,6 +38,7 @@ const GET_RANDOM_INTEGER = (min, max) => {
   return Math.floor(result);
 };
 
+// Функция-генератор пути к фотографии
 const CREATE_PHOTO_URL = () => {
   const WAY = 'photos/';
   const ID = GET_RANDOM_INTEGER(1, 25);
@@ -45,6 +46,7 @@ const CREATE_PHOTO_URL = () => {
   return WAY + ID + EXTENSION;
 };
 
+// Функция-генератор пути к аватару
 const CREATE_AVATAR_URL = () => {
   const WAY = 'img/avatar-';
   const ID = GET_RANDOM_INTEGER(1, 25);
@@ -52,34 +54,29 @@ const CREATE_AVATAR_URL = () => {
   return WAY + ID + EXTENSION;
 };
 
-function GET_COMMENT() {
-  return {
-    id: GET_RANDOM_INTEGER(0, 999999999),
-    avatar: CREATE_AVATAR_URL(),
-    message: COMMENTS[GET_RANDOM_INTEGER(0, COMMENTS.length - 1)],
-    name: NAMES[GET_RANDOM_INTEGER(0, NAMES.length - 1)]
-  };
-}
+// Функция-генератор объекта комментария
+const GET_COMMENT = () => ({
+  id: GET_RANDOM_INTEGER(0, 999999999),
+  avatar: CREATE_AVATAR_URL(),
+  message: COMMENTS[GET_RANDOM_INTEGER(0, COMMENTS.length - 1)],
+  name: NAMES[GET_RANDOM_INTEGER(0, NAMES.length - 1)]
+});
 
-GET_COMMENT();
+// Функция-генератор массива комментариев
+const GET_ALL_COMMENTS = Array.from({length: COMMENTS_COUNT}, GET_COMMENT);
 
-function GET_USER_POST() {
-  return {
-    id: GET_RANDOM_INTEGER(1, 25),
-    url: CREATE_PHOTO_URL(),
-    description: DESCRIPTIONS[GET_RANDOM_INTEGER(0, DESCRIPTIONS.length - 1)],
-    likes: GET_RANDOM_INTEGER(LIKES_MIN_COUNT, LIKES_MAX_COUNT),
-    comments: GET_ALL_COMMENTS
-  };
-}
+// Функция-генератор объекта публикации
+const GET_USER_POST = () => ({
+  id: GET_RANDOM_INTEGER(1, 25),
+  url: CREATE_PHOTO_URL(),
+  description: DESCRIPTIONS[GET_RANDOM_INTEGER(0, DESCRIPTIONS.length - 1)],
+  likes: GET_RANDOM_INTEGER(LIKES_MIN_COUNT, LIKES_MAX_COUNT),
+  comments: GET_ALL_COMMENTS
+});
 
-GET_USER_POST();
+// Финальный массив
+const MASSIV_POST = Array.from({length: POST_COUNT}, GET_USER_POST);
 
+// eslint-disable-next-line no-console
+console.log(MASSIV_POST);
 
-const MASSIV_POST_WIZARD = Array.from({length: POST_COUNT}, GET_USER_POST);
-
-function getFinalResult() {
-  return MASSIV_POST_WIZARD;
-}
-
-getFinalResult();
