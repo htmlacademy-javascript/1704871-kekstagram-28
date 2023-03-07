@@ -6,6 +6,8 @@ const ID_MIN_COUNT = 1;
 const ID_MAX_COUNT = 25;
 const ID_COMMENT_MIN_COUNT = 1;
 const ID_COMMENT_MAX_COUNT = 99999;
+const MIN_AVATAR_COUNT = 1;
+const MAX_AVATAR_COUNT = 6;
 const NAMES = [
   'Дарья',
   'Вадим',
@@ -44,6 +46,8 @@ export {
   ID_MAX_COUNT,
   ID_COMMENT_MIN_COUNT,
   ID_COMMENT_MAX_COUNT,
+  MIN_AVATAR_COUNT,
+  MAX_AVATAR_COUNT,
   NAMES,
   COMMENTS,
   DESCRIPTIONS

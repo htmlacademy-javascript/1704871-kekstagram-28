@@ -7,10 +7,12 @@ import {
   ID_MAX_COUNT,
   ID_COMMENT_MIN_COUNT,
   ID_COMMENT_MAX_COUNT,
+  MIN_AVATAR_COUNT,
+  MAX_AVATAR_COUNT,
   NAMES,
   COMMENTS,
   DESCRIPTIONS
-} from './const.js';
+} from './setup.js';
 
 // Функция-генератор случайного числа
 const getRandomInteger = (min, max) => {
@@ -20,10 +22,32 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
+// Генератор случайного уникального числа
+const createRandomIdFromRangeGenerator = (min, max) => {
+  const previousValues = [];
+
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      // console.error('Перебраны все числа из диапазона от ' + min + ' до ' + max);
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+};
+
+const createPhotoIdUrl = createRandomIdFromRangeGenerator(ID_MIN_COUNT, ID_MAX_COUNT);
+const createPostIdUrl = createRandomIdFromRangeGenerator(ID_MIN_COUNT, ID_MAX_COUNT);
+const createCommentIdUrl = createRandomIdFromRangeGenerator(ID_COMMENT_MIN_COUNT, ID_COMMENT_MAX_COUNT);
+
 // Функция-генератор пути к фотографии
 const createPhotoUrl = () => {
   const WAY = 'photos/';
-  const ID = getRandomInteger(ID_MIN_COUNT, ID_MAX_COUNT);
+  const ID = createPhotoIdUrl(ID_MIN_COUNT, ID_MAX_COUNT);
   const EXTENSION = '.jpg';
   return WAY + ID + EXTENSION;
 };
@@ -31,14 +55,14 @@ const createPhotoUrl = () => {
 // Функция-генератор пути к аватару
 const createAvatarUrl = () => {
   const WAY = 'img/avatar-';
-  const ID = getRandomInteger(ID_MIN_COUNT, ID_MAX_COUNT);
+  const ID = getRandomInteger(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT);
   const EXTENSION = '.svg';
   return WAY + ID + EXTENSION;
 };
 
 // Функция-генератор объекта комментария
 const createComment = () => ({
-  id: getRandomInteger(ID_COMMENT_MIN_COUNT, ID_COMMENT_MAX_COUNT),
+  id: createCommentIdUrl(ID_COMMENT_MIN_COUNT, ID_COMMENT_MAX_COUNT),
   avatar: createAvatarUrl(),
   message: COMMENTS[getRandomInteger(0, COMMENTS.length - 1)],
   name: NAMES[getRandomInteger(0, NAMES.length - 1)]
@@ -46,7 +70,7 @@ const createComment = () => ({
 
 // Функция-генератор объекта публикации
 const createUserPost = () => ({
-  id: getRandomInteger(1, 25),
+  id: createPostIdUrl(ID_MIN_COUNT, ID_MAX_COUNT),
   url: createPhotoUrl(),
   description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
   likes: getRandomInteger(LIKES_MIN_COUNT, LIKES_MAX_COUNT),
