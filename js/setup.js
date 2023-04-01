@@ -36,6 +36,9 @@ const DESCRIPTIONS = [
   'Еду домой! #милыйдом #уютныйвечер',
   'Как здорово получилось! #Супер'
 ];
+const fullPost = document.querySelector('.big-picture');
+const picture = document.querySelectorAll('.picture');
+const closeButton = fullPost.querySelector('.big-picture__preview').querySelector('.cancel');
 
 export {
   POST_COUNT,
@@ -50,5 +53,8 @@ export {
   MAX_AVATAR_COUNT,
   NAMES,
   COMMENTS,
-  DESCRIPTIONS
+  DESCRIPTIONS,
+  fullPost,
+  picture,
+  closeButton
 };
