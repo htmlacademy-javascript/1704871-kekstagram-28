@@ -1,7 +1,6 @@
 // ИМПОРТИРУЕМ МАССИВ ОПИСАНИЙ ИЗ DATA.JS
 import {MASSIV_POST} from './data.js';
 
-
 // СОЗДАЕМ ПЕРЕМЕННУЮ БЛОКА КАРТИНКИ
 const pictureContainer = document.querySelector('.pictures');
 
