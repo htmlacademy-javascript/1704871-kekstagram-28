@@ -1,7 +1,6 @@
 // ИМПОРТИРУЕМ МАССИВ ОПИСАНИЙ ИЗ DATA.JS
 import {MASSIV_POST} from './data.js';
 
-
 // СОЗДАЕМ ПЕРЕМЕННУЮ БЛОКА КАРТИНКИ
 const pictureContainer = document.querySelector('.pictures');
 
@@ -27,3 +26,22 @@ pictureThumbnails.forEach(({url, likes, comments}) => {
 pictureContainer.append(pictureListFragment);
 
 export {pictureThumbnails};
+
+const fullPost = document.querySelector('.big-picture');
+
+const picture = document.querySelectorAll('.picture');
+
+
+for (let i = 0; i < picture.length; i++) {
+  picture[i].addEventListener('click', (evt) => {
+    evt.preventDefault();
+    fullPost.classList.remove('hidden');
+  });
+}
+
+const closeButton = fullPost.querySelector('.big-picture__preview').querySelector('.cancel');
+
+closeButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  fullPost.classList.add('hidden');
+});
